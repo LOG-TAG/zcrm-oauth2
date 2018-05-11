@@ -5,6 +5,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
 
 # Optional npm cache directory
 .npm
@@ -87,3 +88,6 @@ $RECYCLE.BIN/
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+
+### Custom ###
+/.config
