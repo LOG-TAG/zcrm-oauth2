@@ -4,6 +4,7 @@ const request = require('request');
 const fs = require('fs');
 const { grant, redirect_uri, client_id, client_secret } = require('./.config/auth');
 const { version } = require('./package');
+const template = require('./config/template');
 
 program
   .version(version)
@@ -14,6 +15,16 @@ if (!program.file) error('Devi fornire in input un file');
 
 function main(file) {
   const validation = validateFile(file);
+  const config = validateJSON(validation, file);
+}
+
+function validateJSON(json, file) {
+  Object.keys(template).forEach(key => {
+    if (!(key in json))
+      return error(`key ${key} mancante all'interno di '${file}'`);
+  });
+
+  return json;
 }
 
 function validateFile(file) {
