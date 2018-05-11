@@ -9,10 +9,22 @@ program
   .version(version)
   .option('-f, --file <file>', 'auth_file is required', main)
   .option('-s, --server <server>', 'eu || com, default: eu', supportedServers)
+  .option('-o, --output <output>', 'nome file output', generaNomeFile)
   .parse(process.argv);
 
 if (!program.file) error('Devi fornire in input un file');
 console.log(`Server Zoho: ${program.server}`);
+console.log(`output file name: ${program.output}`);
+
+function generaNomeFile(output) {
+  if (output) return output;
+
+  const now = new Date();
+  const twoDigits = data => `0${data}`.slice(-2);
+  const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
+  const time = `${twoDigits(now.getHours())}-${twoDigits(now.getMinutes())}-${twoDigits(now.getSeconds())}`;
+  return `out-${date}T${time}`;
+}
 
 function supportedServers(server) {
   switch (server) {
