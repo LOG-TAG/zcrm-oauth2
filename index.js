@@ -15,15 +15,22 @@ if (!program.file) {
   process.exit(1);
 }
 
-async function main(file) {
+function main(file) {
   const validation = validateFile(file);
 }
 
 function validateFile(file) {
-  const fileContent = fs.readFileSync();
-  if (!fileContent.isFile()) error(`'${file}' non sembra essere un file.`);
+  try {
+    const stats = fs.lstatSync(file);
+    if (!stats.isFile()) error(`'${file}' non sembra essere un file.`);
 
-  return fileContent;
+    const fileContent = fs.readFileSync();
+    return fileContent;
+
+  } catch (e) {
+    console.log(`Errore durante la lettura di ${file}.`);
+    error(e.message);
+  }
 }
 
 function error(error) {
