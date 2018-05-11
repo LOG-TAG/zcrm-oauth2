@@ -10,7 +10,7 @@ program
   .option('-f, --file <file>', 'auth_file is required', main)
   .parse(process.argv);
 
-if (!process.file) {
+if (!program.file) {
   console.log('Devi fornire in input un file');
   process.exit(1);
 }
