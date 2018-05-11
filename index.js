@@ -7,12 +7,32 @@ const template = require('./config/template');
 
 program
   .version(version)
-  .option('-f, --file <file>', 'auth_file is required', main)
-  .option('-s, --server <server>', 'eu || com, default: eu', supportedServers)
+  .usage('[options] <file>')
+  .option('-f, --file <file>', 'file contenente parametri da autenticare')
+  .option('-s, --server <server>', 'eu || com, default: eu')
+  .option('-o, --output <output>', 'nome file output')
   .parse(process.argv);
 
 if (!program.file) error('Devi fornire in input un file');
+
+// Setto le proprietà di default
+const { output, server } = program;
+program.server = server || supportedServers(server);
+program.output = output || generaNomeFile();
+
 console.log(`Server Zoho: ${program.server}`);
+console.log(`output file name: ${program.output}`);
+
+// Esecuzione
+main(program.file);
+
+function generaNomeFile() {
+  const now = new Date();
+  const twoDigits = data => `0${data}`.slice(-2);
+  const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
+  const time = `${twoDigits(now.getHours())}-${twoDigits(now.getMinutes())}-${twoDigits(now.getSeconds())}`;
+  return `out-${date}T${time}.json`;
+}
 
 function supportedServers(server) {
   switch (server) {
@@ -69,9 +89,9 @@ function sendRequest(options) {
   request.post(`https://accounts.zoho.${program.server}/oauth/v2/token?code=${grant}&redirect_uri=${redirect_uri}&client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err) error(`Errore nell'ottenere una risposta da Zoho: ${err.message}`);
-      fs.writeFileSync('out.json', body);
+      fs.writeFileSync(program.output, body);
       console.log(body);
-      console.log(`Risultato esportato con successo in 'out.json'.`);
+      console.log(`Risultato esportato con successo in '${program.output}'.`);
       process.exit(0);
     });
 }
