@@ -2,7 +2,6 @@
 const program = require('commander');
 const request = require('request');
 const fs = require('fs');
-const { grant, redirect_uri, client_id, client_secret } = require('./.config/auth');
 const { version } = require('./package');
 const template = require('./config/template');
 
