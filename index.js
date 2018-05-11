@@ -24,7 +24,7 @@ function validateFile(file) {
     const stats = fs.lstatSync(file);
     if (!stats.isFile()) error(`'${file}' non sembra essere un file.`);
 
-    const fileContent = fs.readFileSync();
+    const fileContent = fs.readFileSync(file);
 
     try {
       return JSON.parse(fileContent);
