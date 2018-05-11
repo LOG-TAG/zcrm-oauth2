@@ -16,7 +16,19 @@ if (!process.file) {
 }
 
 async function main(file) {
-  console.log(`fileName: ${file}`);
+  const validation = validateFile(file);
+}
+
+function validateFile(file) {
+  const fileContent = fs.readFileSync();
+  if (!fileContent.isFile()) error(`'${file}' non sembra essere un file.`);
+
+  return fileContent;
+}
+
+function error(error) {
+  console.log(error);
+  process.exit(1);
 }
 
 function sendRequest() {
