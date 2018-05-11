@@ -16,6 +16,7 @@ if (!program.file) error('Devi fornire in input un file');
 function main(file) {
   const validation = validateFile(file);
   const config = validateJSON(validation, file);
+  sendRequest(config);
 }
 
 function validateJSON(json, file) {
@@ -51,10 +52,15 @@ function error(error) {
   process.exit(1);
 }
 
-function sendRequest() {
+function sendRequest(options) {
+  const { grant, redirect_uri, client_id, client_secret } = options;
   request.post(`https://accounts.zoho.com/oauth/v2/token?code=${grant}&redirect_uri=${redirect_uri}&client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code`,
-    (error, resp, body) => {
-      console.log(error, resp, body);
+    (err, resp, body) => {
+      if (err) error(`Errore nell'ottenere una risposta da Zoho: ${err.message}`);
+      fs.writeFileSync('out.json', body);
+      console.log(body);
+      console.log(`Risultato esportato con successo in 'out.json'.`);
+      process.exit(0);
     });
 }
 
