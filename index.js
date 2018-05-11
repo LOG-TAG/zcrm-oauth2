@@ -7,7 +7,7 @@ const template = require('./config/template');
 
 program
   .version(version)
-  .option('-f, --file <file>', 'auth_file is required', main)
+  .option('-f, --file <file>', 'auth_file is required')
   .option('-s, --server <server>', 'eu || com, default: eu', supportedServers)
   .option('-o, --output <output>', 'nome file output', generaNomeFile)
   .parse(process.argv);
@@ -15,6 +15,7 @@ program
 if (!program.file) error('Devi fornire in input un file');
 console.log(`Server Zoho: ${program.server}`);
 console.log(`output file name: ${program.output}`);
+main(program.file);
 
 function generaNomeFile(output) {
   if (output) return output;
