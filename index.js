@@ -25,8 +25,13 @@ function validateFile(file) {
     if (!stats.isFile()) error(`'${file}' non sembra essere un file.`);
 
     const fileContent = fs.readFileSync();
-    return fileContent;
 
+    try {
+      return JSON.parse(fileContent);
+    } catch (e2) {
+      console.log(`Errore durante il parsing del file ${file}`);
+      error(e2.message);
+    }
   } catch (e) {
     console.log(`Errore durante la lettura di ${file}.`);
     error(e.message);
