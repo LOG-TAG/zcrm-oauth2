@@ -10,10 +10,7 @@ program
   .option('-f, --file <file>', 'auth_file is required', main)
   .parse(process.argv);
 
-if (!program.file) {
-  console.log('Devi fornire in input un file');
-  process.exit(1);
-}
+if (!program.file) error('Devi fornire in input un file');
 
 function main(file) {
   const validation = validateFile(file);
