@@ -31,7 +31,7 @@ function generaNomeFile() {
   const twoDigits = data => `0${data}`.slice(-2);
   const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
   const time = `${twoDigits(now.getHours())}-${twoDigits(now.getMinutes())}-${twoDigits(now.getSeconds())}`;
-  return `out-${date}T${time}`;
+  return `out-${date}T${time}.json`;
 }
 
 function supportedServers(server) {
@@ -89,9 +89,9 @@ function sendRequest(options) {
   request.post(`https://accounts.zoho.${program.server}/oauth/v2/token?code=${grant}&redirect_uri=${redirect_uri}&client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err) error(`Errore nell'ottenere una risposta da Zoho: ${err.message}`);
-      fs.writeFileSync('out.json', body);
+      fs.writeFileSync(program.output, body);
       console.log(body);
-      console.log(`Risultato esportato con successo in 'out.json'.`);
+      console.log(`Risultato esportato con successo in '${program.output}'.`);
       process.exit(0);
     });
 }
