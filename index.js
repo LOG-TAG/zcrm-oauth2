@@ -7,7 +7,7 @@ const template = require('./config/template');
 
 program
   .version(version)
-  .option('-f, --file <file>', 'auth_file is required')
+  .option('-f, --file <file>', 'file contenente parametri da autenticare')
   .option('-s, --server <server>', 'eu || com, default: eu', supportedServers)
   .option('-o, --output <output>', 'nome file output', generaNomeFile)
   .parse(process.argv);
