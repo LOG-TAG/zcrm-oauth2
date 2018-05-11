@@ -1,15 +1,16 @@
 {
-  "name": "ZohoCRM-APIv2-AuthenticatorService",
+  "name": "ZohoCRM-APIv2-Authenticator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
-  "author": "",
+  "author": "Domenico Ruggiano",
   "license": "ISC",
   "dependencies": {
+    "commander": "^2.15.1",
     "request": "^2.85.0"
+  },
+  "bin": {
+    "zohoauth": "./index.js"
   }
 }
