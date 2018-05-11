@@ -7,19 +7,26 @@ const template = require('./config/template');
 
 program
   .version(version)
+  .usage('[options] <file>')
   .option('-f, --file <file>', 'file contenente parametri da autenticare')
-  .option('-s, --server <server>', 'eu || com, default: eu', supportedServers)
-  .option('-o, --output <output>', 'nome file output', generaNomeFile)
+  .option('-s, --server <server>', 'eu || com, default: eu')
+  .option('-o, --output <output>', 'nome file output')
   .parse(process.argv);
 
 if (!program.file) error('Devi fornire in input un file');
+
+// Setto le proprietà di default
+const { output, server } = program;
+program.server = server || supportedServers(server);
+program.output = output || generaNomeFile();
+
 console.log(`Server Zoho: ${program.server}`);
 console.log(`output file name: ${program.output}`);
+
+// Esecuzione
 main(program.file);
 
-function generaNomeFile(output) {
-  if (output) return output;
-
+function generaNomeFile() {
   const now = new Date();
   const twoDigits = data => `0${data}`.slice(-2);
   const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
