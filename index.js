@@ -95,4 +95,3 @@ function sendRequest(options) {
       process.exit(0);
     });
 }
-
