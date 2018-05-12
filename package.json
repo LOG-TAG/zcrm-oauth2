@@ -1,5 +1,5 @@
 {
-  "name": "ZohoCRM-APIv2-Authenticator",
+  "name": "zcrm-oauth",
   "version": "1.0.0",
   "description": "",
   "main": "cli.js",
@@ -19,10 +19,10 @@
     "request": "^2.85.0"
   },
   "bin": {
-    "zohoauth": "./cli.js"
+    "zcrm-oauth": "./cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crmpartners/ZohoCRM-APIv2-Authenticator.git"
+    "url": "git+https://github.com/crmpartners/zcrm-oauth.git"
   }
 }
