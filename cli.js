@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander');
+const url = require('url');
 const request = require('request');
 const fs = require('fs');
 const { version } = require('./package');
@@ -55,6 +56,11 @@ function validateOptions(program) {
 
   if (missing.length)
     error(`You must specify valid ${missing.join(', ')}`);
+
+  // check if user wants to generate code but is using another redirect then "localhost"
+  const { code, redirect } = validate;
+  if (!code && redirect && url.parse(redirect).hostname !== 'localhost')
+    error(`You must use a "localhost" redirect if you want to generate the code "grant_token".`);
 
   return {
     ...program,
