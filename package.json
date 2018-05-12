@@ -7,7 +7,9 @@
   "author": "Domenico Ruggiano",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "commander": "^2.15.1",
+    "express": "^4.16.3",
     "request": "^2.85.0"
   },
   "bin": {
