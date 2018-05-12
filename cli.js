@@ -47,21 +47,16 @@ function validateOptions(program) {
   let validate = importFromFile ? validateFile(file) : program;
 
   const required = ['id', 'secret', 'redirect'];
-  const requiredValues = {};
 
   // check if any of the required fields id undefiend
-  const missing = required.filter(item => {
-    const programOption = validate[item];
-    requiredValues[item] = programOption;
-    return typeof programOption === 'undefined';
-  });
+  const missing = required.filter(item => typeof validate[item] === 'undefined');
 
   if (missing.length)
     error(`You must specify valid ${missing.join(', ')}`);
 
   return {
     ...program,
-    ...requiredValues
+    ...validate
   };
 }
 
