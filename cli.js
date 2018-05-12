@@ -34,11 +34,11 @@ main(
   output
 );
 
-function main(oauth, port, server, output) {
+function main(oauth, port) {
   const { code } = oauth;
 
   if (code) sendRequest(oauth);
-  else makeServer(code => sendRequest({ ...oauth, code }));
+  else makeServer(port, code => sendRequest({ ...oauth, code }));
 }
 
 function validateOptions(program) {
@@ -111,12 +111,16 @@ function error(error) {
 
 function sendRequest(oauth) {
   const { code, redirect, id, secret } = oauth;
-  request.post(`https://accounts.zoho.${program.server}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
+  request.post(`https://accounts.zoho.${server}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err) error(`Error in Zoho response: ${err.message}`);
-      fs.writeFileSync(program.output, body);
-      console.log(body);
-      console.log(`Result sucessfully exported in '${program.output}'.`);
-      process.exit(0);
+      writeOutputFile(body);
     });
+}
+
+function writeOutputFile(content) {
+  fs.writeFileSync(output, content);
+  console.log(content);
+  console.log(`Result sucessfully exported in '${output}'.`);
+  process.exit(0);
 }
