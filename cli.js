@@ -3,7 +3,6 @@ const program = require('commander');
 const request = require('request');
 const fs = require('fs');
 const { version } = require('./package');
-const template = require('./config/template');
 
 program
   .version(version)
@@ -26,7 +25,7 @@ const options = validateOptions(program);
 function validateOptions(program) {
   const { file } = program;
   const importFromFile = file || false;
-  let validate = importFromFile ? validateJSON(validateFile(file)) : program;
+  let validate = importFromFile ?validateFile(file) : program;
 
   const required = ['id', 'secret', 'redirect'];
 
@@ -71,17 +70,7 @@ function supportedServers(server) {
 
 function main(file) {
   const validation = validateFile(file);
-  const config = validateJSON(validation, file);
-  sendRequest(config);
-}
-
-function validateJSON(json, file) {
-  Object.keys(template).forEach(key => {
-    if (!(key in json))
-      return error(`Missing ${key} key in '${file}'`);
-  });
-
-  return json;
+  sendRequest(validation);
 }
 
 function validateFile(file) {
