@@ -25,15 +25,26 @@ const options = validateOptions(program);
 function validateOptions(program) {
   const { file } = program;
   const importFromFile = file || false;
-  let validate = importFromFile ?validateFile(file) : program;
+  let validate = importFromFile ? validateFile(file) : program;
 
   const required = ['id', 'secret', 'redirect'];
+  const requiredValues = {};
 
   // check if any of the required fields id undefiend
-  const missing = required.filter(item => typeof validate[item] === 'undefined');
+  const missing = required.filter(item => {
+    const programOption = validate[item];
+    requiredValues[item] = programOption;
+    return typeof programOption === 'undefined';
+  });
 
-  if (!missing.length) return program;
-  else error(`You must specify valid ${missing.join(', ')}`);
+  if (missing.length)
+    error(`You must specify valid ${missing.join(', ')}`);
+
+
+  return {
+    ...program,
+    ...requiredValues
+  };
 }
 
 // Setto le proprietà di default
