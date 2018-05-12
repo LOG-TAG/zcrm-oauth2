@@ -8,25 +8,25 @@ const template = require('./config/template');
 program
   .version(version)
   .usage('[options] <file>')
-  .option('-f, --file <file>', 'file contenente parametri da autenticare')
-  .option('-s, --server <server>', 'eu || com, default: eu')
-  .option('-o, --output <output>', 'nome file output')
+  .option('-f, --file <file>', 'file containing authentication parameters')
+  .option('-s, --server <server>', 'eu, com. Default is eu')
+  .option('-o, --output <output>', 'output file name')
   .parse(process.argv);
 
-if (!program.file) error('Devi fornire in input un file');
+if (!program.file) error('You must provide a valid input file');
 
 // Setto le proprietà di default
 const { output, server } = program;
 program.server = server || supportedServers(server);
-program.output = output || generaNomeFile();
+program.output = output || makeOutputFileName();
 
-console.log(`Server Zoho: ${program.server}`);
-console.log(`output file name: ${program.output}`);
+console.log(`Zoho Server: ${program.server}`);
+console.log(`Output file name: ${program.output}`);
 
 // Esecuzione
 main(program.file);
 
-function generaNomeFile() {
+function makeOutputFileName() {
   const now = new Date();
   const twoDigits = data => `0${data}`.slice(-2);
   const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
@@ -40,7 +40,7 @@ function supportedServers(server) {
     case 'com':
       return server;
     default:
-      console.log(`Server '${server}' invalido, utilizzo: 'eu'`);
+      console.log(`Server '${server}' is not valid, using: 'eu'`);
       return 'eu';
   }
 }
@@ -54,7 +54,7 @@ function main(file) {
 function validateJSON(json, file) {
   Object.keys(template).forEach(key => {
     if (!(key in json))
-      return error(`key ${key} mancante all'interno di '${file}'`);
+      return error(`Missing ${key} key in '${file}'`);
   });
 
   return json;
@@ -63,18 +63,18 @@ function validateJSON(json, file) {
 function validateFile(file) {
   try {
     const stats = fs.lstatSync(file);
-    if (!stats.isFile()) error(`'${file}' non sembra essere un file.`);
+    if (!stats.isFile()) error(`'${file}' doesn't seem to be a file.`);
 
     const fileContent = fs.readFileSync(file);
 
     try {
       return JSON.parse(fileContent);
     } catch (e2) {
-      console.log(`Errore durante il parsing del file ${file}`);
+      console.log(`Error parsing ${file}`);
       error(e2.message);
     }
   } catch (e) {
-    console.log(`Errore durante la lettura di ${file}.`);
+    console.log(`Error reading ${file}.`);
     error(e.message);
   }
 }
@@ -88,10 +88,10 @@ function sendRequest(options) {
   const { grant, redirect_uri, client_id, client_secret } = options;
   request.post(`https://accounts.zoho.${program.server}/oauth/v2/token?code=${grant}&redirect_uri=${redirect_uri}&client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code`,
     (err, resp, body) => {
-      if (err) error(`Errore nell'ottenere una risposta da Zoho: ${err.message}`);
+      if (err) error(`Error in Zoho response: ${err.message}`);
       fs.writeFileSync(program.output, body);
       console.log(body);
-      console.log(`Risultato esportato con successo in '${program.output}'.`);
+      console.log(`Result sucessfully exported in '${program.output}'.`);
       process.exit(0);
     });
 }
