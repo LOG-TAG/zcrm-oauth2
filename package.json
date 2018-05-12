@@ -4,7 +4,11 @@
   "description": "",
   "main": "cli.js",
   "keywords": [
-    "zoho", "crm", "oauth", "api", "ZohoCRM"
+    "zoho",
+    "crm",
+    "oauth",
+    "api",
+    "ZohoCRM"
   ],
   "author": {
     "name": "Domenico Ruggiano",
@@ -13,7 +17,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.2",
     "commander": "^2.15.1",
     "express": "^4.16.3",
     "opn": "^5.3.0",
