@@ -7,7 +7,7 @@ const template = require('./config/template');
 
 program
   .version(version)
-  .usage('[options] <file>')
+  .usage('[options]')
   .option('--id <id>', 'client_id. Specify client-id obtained from the connected app.')
   .option('--secret <secret>', 'client_secret. Specify client-secret obtained from the connected app.')
   .option('--redirect <redirect>',
@@ -15,7 +15,7 @@ program
   .option('--code <grant_token>',
     `grant_token. If not present, will be generated. 'http://localhost:[port]/callback' is required in your app Callback URL to get this work.`)
   .option('-p, --port <port>', 'the port for the local server http://localhost:[port]/callback. Default is 8000.')
-  .option('-f, --file <file>', 'file containing authentication parameters.')
+  .option('-f, --file <file>', 'file containing options parameters.')
   .option('-s, --server <server>',
     `Zoho location for API authentication on 'https://accounts.zoho.[server]'. Default is eu.`)
   .option('-o, --output <output>', 'output file name.')
