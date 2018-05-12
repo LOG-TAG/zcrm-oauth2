@@ -2,7 +2,7 @@
   "name": "zcrm-oauth",
   "version": "1.0.5",
   "description": "",
-  "main": "cli.js",
+  "main": "index.js",
   "keywords": [
     "zoho",
     "crm",
@@ -23,7 +23,7 @@
     "request": "^2.85.0"
   },
   "bin": {
-    "zcrm-oauth": "./cli.js"
+    "zcrm-oauth": "./index.js"
   },
   "repository": {
     "type": "git",
