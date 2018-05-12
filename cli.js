@@ -21,6 +21,22 @@ program
   .option('-o, --output <output>', 'output file name.')
   .parse(process.argv);
 
+const options = validateOptions(program);
+
+function validateOptions(program) {
+  const { file } = program;
+  const importFromFile = file || false;
+  let validate = importFromFile ? validateJSON(validateFile(file)) : program;
+
+  const required = ['id', 'secret', 'redirect'];
+
+  // check if any of the required fields id undefiend
+  const missing = required.filter(item => typeof validate[item] === 'undefined');
+
+  if (!missing.length) return program;
+  else error(`You must specify valid ${missing.join(', ')}`);
+}
+
 if (!program.file) error('You must provide a valid input file');
 
 // Setto le proprietà di default
