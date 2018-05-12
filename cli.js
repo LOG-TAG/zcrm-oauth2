@@ -20,7 +20,23 @@ program
   .option('-o, --output <output>', 'output file name.')
   .parse(process.argv);
 
-const options = validateOptions(program);
+let { id, secret, redirect, code, port, server, output } = validateOptions(program);
+code = code || false;
+port = port || 8000;
+server = server || supportedServers(server);
+output = output || makeOutputFileName();
+
+main(
+  { id, secret, redirect, code },
+  port,
+  server,
+  output
+);
+
+function main(file) {
+  const validation = validateFile(file);
+  sendRequest(validation);
+}
 
 function validateOptions(program) {
   const { file } = program;
@@ -47,17 +63,6 @@ function validateOptions(program) {
   };
 }
 
-// Setto le proprietà di default
-const { output, server } = program;
-program.server = server || supportedServers(server);
-program.output = output || makeOutputFileName();
-
-console.log(`Zoho Server: ${program.server}`);
-console.log(`Output file name: ${program.output}`);
-
-// Esecuzione
-main(program.file);
-
 function makeOutputFileName() {
   const now = new Date();
   const twoDigits = data => `0${data}`.slice(-2);
@@ -75,11 +80,6 @@ function supportedServers(server) {
       console.log(`Server '${server}' is not valid, using: 'eu'`);
       return 'eu';
   }
-}
-
-function main(file) {
-  const validation = validateFile(file);
-  sendRequest(validation);
 }
 
 function validateFile(file) {
