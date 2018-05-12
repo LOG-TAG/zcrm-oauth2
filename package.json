@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "cli.js",
-  "keywords": [],
-  "author": "Domenico Ruggiano",
-  "license": "ISC",
+  "keywords": [
+    "zoho", "crm", "oauth", "api", "ZohoCRM"
+  ],
+  "author": {
+    "name": "Domenico Ruggiano",
+    "email": "domenico.ruggiano@crmpartners.it",
+    "url": "https://www.linkedin.com/in/domenico-ruggiano/"
+  },
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
     "commander": "^2.15.1",
@@ -14,5 +20,9 @@
   },
   "bin": {
     "zohoauth": "./cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crmpartners/ZohoCRM-APIv2-Authenticator.git"
   }
 }
