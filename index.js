@@ -15,17 +15,19 @@ program
     `redirect_uri. Default value is http://localhost:8000/callback. Specify the Callback URL that you registered during the app registration. If you want to generate <grant_token> is required to use "localhost"`)
   .option('--code <grant_token>',
     `grant_token. If not present, will be generated. 'http://localhost:[port]/callback' is required in your app Callback URL to get this work.`)
-  .option('--scope <scope, ...>',
-    `Specifies what data can be accessed by your application. Refer "https://www.zoho.com/crm/help/api/v2/#OAuth2_0" Scope. Default is "ZohoCRM.modules.ALL".`)
-  .option('-p, --port <port>', 'the port for the local server http://localhost:[port]/callback. Default is "8000".')
+  .option('--scope <scopes...>',
+    `List of scopes separated by ",". Specifies what data can be accessed by your application. Refer https://www.zoho.com/crm/help/api/v2/#OAuth2_0 "Scope". Default value is "ZohoCRM.modules.ALL".`,
+    scope => scope.split(',').trim().join(','))
+  .option('-p, --port <port>', 'the port for the local server http://localhost:[port]/callback. Default value is "8000".')
   .option('-f, --file <file>', 'file containing options parameters.')
   .option('-s, --server <server>',
-    `Zoho location for API authentication on 'https://accounts.zoho.[server]'. Default is eu.`)
+    `Zoho location for API authentication on 'https://accounts.zoho.[server]'. Default value is eu.`)
   .option('-o, --output <output>', 'output file name.')
   .parse(process.argv);
 
-let { id, secret, redirect, code, port, server, output } = validateOptions(program);
+let { id, secret, redirect, code, scope, port, server, output } = validateOptions(program);
 code = code || false;
+scope = scope || 'ZohoCRM.modules.ALL';
 port = port || 8000;
 server = server || supportedServers(server);
 output = output || makeOutputFileName();
@@ -41,7 +43,7 @@ function main(oauth, port) {
   const { id, code } = oauth;
 
   if (code) sendRequest(oauth);
-  else makeServer(port, { id, server }, code => sendRequest({ ...oauth, code }));
+  else makeServer(port, { id, server, scope }, code => sendRequest({ ...oauth, code }));
 }
 
 function validateOptions(program) {

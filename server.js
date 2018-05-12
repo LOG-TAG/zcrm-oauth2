@@ -3,10 +3,10 @@ const opn = require('opn');
 let instance;
 
 function makeServer(port, options, onCodeReceived) {
-  const { id, server } = options;
+  const { id, server, scope } = options;
 
   // open the browser
-  opn(`https://accounts.zoho.${server}/oauth/v2/auth?scope=ZohoCRM.modules.ALL&client_id=${id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/callback`);
+  opn(`https://accounts.zoho.${server}/oauth/v2/auth?scope=${scope}&client_id=${id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/callback`);
 
   app.get('/callback', (req, res) => {
     const code = req.query.code;
