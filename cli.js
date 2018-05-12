@@ -36,8 +36,6 @@ function validateOptions(program) {
   else error(`You must specify valid ${missing.join(', ')}`);
 }
 
-if (!program.file) error('You must provide a valid input file');
-
 // Setto le proprietà di default
 const { output, server } = program;
 program.server = server || supportedServers(server);
