@@ -11,10 +11,12 @@ program
   .option('--id <id>', 'client_id. Specify client-id obtained from the connected app.')
   .option('--secret <secret>', 'client_secret. Specify client-secret obtained from the connected app.')
   .option('--redirect <redirect>',
-    `redirect_uri. Default value is http://localhost:8000/callback. Specify the Callback URL that you registered during the app registration.`)
+    `redirect_uri. Default value is http://localhost:8000/callback. Specify the Callback URL that you registered during the app registration. If you want to generate <grant_token> is required to use "localhost"`)
   .option('--code <grant_token>',
     `grant_token. If not present, will be generated. 'http://localhost:[port]/callback' is required in your app Callback URL to get this work.`)
-  .option('-p, --port <port>', 'the port for the local server http://localhost:[port]/callback. Default is 8000.')
+  .option('--scope <scope, ...>',
+    `Specifies what data can be accessed by your application. Refer "https://www.zoho.com/crm/help/api/v2/#OAuth2_0" Scope. Default is "ZohoCRM.modules.ALL".`)
+  .option('-p, --port <port>', 'the port for the local server http://localhost:[port]/callback. Default is "8000".')
   .option('-f, --file <file>', 'file containing options parameters.')
   .option('-s, --server <server>',
     `Zoho location for API authentication on 'https://accounts.zoho.[server]'. Default is eu.`)
