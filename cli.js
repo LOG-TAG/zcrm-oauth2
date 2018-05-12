@@ -3,6 +3,7 @@ const program = require('commander');
 const request = require('request');
 const fs = require('fs');
 const { version } = require('./package');
+const { makeServer } = require('./server');
 
 program
   .version(version)
@@ -33,9 +34,13 @@ main(
   output
 );
 
-function main(file) {
-  const validation = validateFile(file);
-  sendRequest(validation);
+function main(oauth, port, server, output) {
+  const { code } = oauth;
+
+  if (!code)
+    makeServer(code => sendRequest({ ...oauth, code }));
+  else
+    sendRequest(oauth);
 }
 
 function validateOptions(program) {
@@ -106,9 +111,9 @@ function error(error) {
   process.exit(1);
 }
 
-function sendRequest(options) {
-  const { grant, redirect_uri, client_id, client_secret } = options;
-  request.post(`https://accounts.zoho.${program.server}/oauth/v2/token?code=${grant}&redirect_uri=${redirect_uri}&client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code`,
+function sendRequest(oauth) {
+  const { code, redirect, id, secret } = oauth;
+  request.post(`https://accounts.zoho.${program.server}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err) error(`Error in Zoho response: ${err.message}`);
       fs.writeFileSync(program.output, body);
