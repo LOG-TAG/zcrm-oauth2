@@ -35,10 +35,10 @@ main(
 );
 
 function main(oauth, port) {
-  const { code } = oauth;
+  const { id, code } = oauth;
 
   if (code) sendRequest(oauth);
-  else makeServer(port, code => sendRequest({ ...oauth, code }));
+  else makeServer(port, { id, server }, code => sendRequest({ ...oauth, code }));
 }
 
 function validateOptions(program) {
@@ -58,7 +58,6 @@ function validateOptions(program) {
 
   if (missing.length)
     error(`You must specify valid ${missing.join(', ')}`);
-
 
   return {
     ...program,
