@@ -1,6 +1,6 @@
 {
   "name": "zcrm-oauth",
-  "version": "1.0.6",
+  "version": "1.0.6-beta",
   "description": "",
   "main": "index.js",
   "keywords": [
