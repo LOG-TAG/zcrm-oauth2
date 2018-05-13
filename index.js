@@ -9,8 +9,10 @@ const { makeServer } = require('./server');
 program
   .version(version)
   .usage('[options]')
-  .option('--id <id>', '* client-id obtained from the connected app.')
-  .option('--secret <secret>', '* client-secret obtained from the connected app.')
+  .option('--id <id>',
+    '* client-id obtained from the connected app.')
+  .option('--secret <secret>',
+    '* client-secret obtained from the connected app.')
   .option('--redirect <redirect>',
     `* Callback URL that you registered. To generate <grant_token> is required "localhost".`)
   .option('--code <grant_token>',
@@ -18,11 +20,14 @@ program
   .option('--scope <scopes...>',
     `List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".`,
     scope => scope.split(',').trim().join(','))
-  .option('-p, --port <port>', 'The local server port to generate <grant_toke>. Default value is "8000".')
-  .option('-f, --file <file>', 'File containing options parameters.')
+  .option('-p, --port <port>',
+    'The local server port to generate <grant_toke>. Default value is "8000".')
+  .option('-f, --file <file>',
+    'File containing options parameters.')
   .option('-s, --server <server>',
     `Zoho API authentication server. Default value is "eu".`)
-  .option('-o, --output <output>', 'Output file name.')
+  .option('-o, --output <output>',
+    'Output file name.')
   .on('--help', () => console.log(`
     * required fields.
     `))
