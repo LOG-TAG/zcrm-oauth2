@@ -1,7 +1,6 @@
 Please note that this project is currently in **beta** and is not ready for production.
 
-# zcrm-oauth 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+# ZCRM OAuth [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
 Cli tool built to simplify the authentication process for **Zoho CRM API v2**. 
 
@@ -45,3 +44,7 @@ That's it. You can start working on it!
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning.
+
+## License
+
+ZCRM OAuth is an open source software [licensed as MIT](https://github.com/crmpartners/zcrm-oauth/blob/master/LICENSE).
