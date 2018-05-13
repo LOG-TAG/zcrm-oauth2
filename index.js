@@ -9,20 +9,20 @@ const { makeServer } = require('./server');
 program
   .version(version)
   .usage('[options]')
-  .option('--id <id>', 'client_id. Specify client-id obtained from the connected app.')
-  .option('--secret <secret>', 'client_secret. Specify client-secret obtained from the connected app.')
+  .option('--id <id>', 'client-id obtained from the connected app.')
+  .option('--secret <secret>', 'client-secret obtained from the connected app.')
   .option('--redirect <redirect>',
-    `redirect_uri. Default value is http://localhost:8000/callback. Specify the Callback URL that you registered during the app registration. If you want to generate <grant_token> is required to use "localhost"`)
+    `Callback URL that you registered. To generate <grant_token> is required "localhost".`)
   .option('--code <grant_token>',
-    `grant_token. If not present, will be generated. 'http://localhost:[port]/callback' is required in your app Callback URL to get this work.`)
+    `If not present, will be generated. Is required to redirect to "localhost" URL to get this work.`)
   .option('--scope <scopes...>',
-    `List of scopes separated by ",". Specifies what data can be accessed by your application. Refer https://www.zoho.com/crm/help/api/v2/#OAuth2_0 "Scope". Default value is "ZohoCRM.modules.ALL".`,
+    `List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".`,
     scope => scope.split(',').trim().join(','))
-  .option('-p, --port <port>', 'the port for the local server http://localhost:[port]/callback. Default value is "8000".')
-  .option('-f, --file <file>', 'file containing options parameters.')
+  .option('-p, --port <port>', 'The local server port to generate <grant_toke>. Default value is "8000".')
+  .option('-f, --file <file>', 'File containing options parameters.')
   .option('-s, --server <server>',
-    `Zoho location for API authentication on 'https://accounts.zoho.[server]'. Default value is eu.`)
-  .option('-o, --output <output>', 'output file name.')
+    `Zoho API authentication server. Default value is "eu".`)
+  .option('-o, --output <output>', 'Output file name.')
   .parse(process.argv);
 
 let { id, secret, redirect, code, scope, port, server, output } = validateOptions(program);
