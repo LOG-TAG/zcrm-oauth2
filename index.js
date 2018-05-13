@@ -87,7 +87,9 @@ function makeOutputFileName() {
 function validateFile(file) {
   try {
     const stats = fs.lstatSync(file);
-    if (!stats.isFile()) error(`'${file}' doesn't seem to be a file.`);
+
+    if (!stats.isFile())
+      error(`'${file}' doesn't seem to be a file.`);
 
     const fileContent = fs.readFileSync(file);
 
@@ -112,7 +114,9 @@ function sendRequest(oauth) {
   const { code, redirect, id, secret } = oauth;
   request.post(`https://accounts.zoho.${server}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
     (err, resp, body) => {
-      if (err) error(`Error in Zoho response: ${err.message}`);
+      if (err)
+        error(`Error in Zoho response: ${err.message}`);
+
       writeOutputFile(body);
     });
 }
