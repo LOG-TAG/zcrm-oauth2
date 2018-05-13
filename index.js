@@ -29,7 +29,7 @@ let { id, secret, redirect, code, scope, port, server, output } = validateOption
 code = code || false;
 scope = scope || 'ZohoCRM.modules.ALL';
 port = port || 8000;
-server = server || supportedServers(server);
+server = server || 'eu';
 output = output || makeOutputFileName();
 
 main(
@@ -82,17 +82,6 @@ function makeOutputFileName() {
   const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
   const time = `${twoDigits(now.getHours())}-${twoDigits(now.getMinutes())}-${twoDigits(now.getSeconds())}`;
   return `out-${date}T${time}.json`;
-}
-
-function supportedServers(server) {
-  switch (server) {
-    case 'eu':
-    case 'com':
-      return server;
-    default:
-      console.log(`Server '${server}' is not valid, using: 'eu'`);
-      return 'eu';
-  }
 }
 
 function validateFile(file) {
