@@ -1,8 +1,8 @@
-Please note that this project is currently in **beta** and is not ready for production.
+> Please note that this project is currently in **beta** and is not ready for production.
 
 # ZCRM OAuth [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
-Cli tool built to simplify the authentication process for **Zoho CRM API v2**. 
+CLI module built to simplify the authentication process for **Zoho CRM API v2**. 
 
 ## Installing / Getting started
 
@@ -14,7 +14,7 @@ npm install
 node index.js [options]
 ```
 
-To display all the options:
+To display all the CLI options:
 
 ```shell
 node index.js -h
