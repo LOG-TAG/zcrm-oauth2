@@ -42,8 +42,14 @@ main(
 function main(oauth, port) {
   const { id, code } = oauth;
 
-  if (code) sendRequest(oauth);
-  else makeServer(port, { id, server, scope }, code => sendRequest({ ...oauth, code }));
+  if (code)
+    sendRequest(oauth);
+  else
+    makeServer(
+      port,
+      { id, server, scope },
+      code => sendRequest({ ...oauth, code })
+    );
 }
 
 function validateOptions(program) {
