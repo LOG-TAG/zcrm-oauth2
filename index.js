@@ -14,18 +14,18 @@ program
   .option('--secret <secret>',
     '* client-secret obtained from the connected app.')
   .option('--redirect <redirect>',
-    `* Callback URL that you registered. To generate <grant_token> is required "localhost".`)
+    '* Callback URL that you registered. To generate <grant_token> is required "localhost".')
   .option('--code <grant_token>',
-    `If not present, will be generated. Is required to redirect to "localhost" URL to get this work.`)
+    'If not present, will be generated. Is required to redirect to "localhost" URL to get this work.')
   .option('--scope <scopes...>',
-    `List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".`,
+    'List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".',
     scope => scope.split(',').trim().join(','))
   .option('-p, --port <port>',
     'The local server port to generate <grant_toke>. Default value is "8000".')
   .option('-f, --file <file>',
     'File containing options parameters.')
   .option('-s, --server <server>',
-    `Zoho API authentication server. Default value is "eu".`)
+    'Zoho API authentication server. Default value is "eu".')
   .option('-o, --output <output>',
     'Output file name.')
   .on('--help', () => console.log(`
