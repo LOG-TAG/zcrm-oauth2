@@ -15,7 +15,7 @@ program
   .option('--redirect <redirect>',
     '* Callback URL that you registered. To generate <grant_token> is required "localhost".')
   .option('--code <grant_token>',
-    'If not present, will be generated. Is required to redirect to "localhost" URL to get this work.')
+    'If not present, will be generated. It requires to redirect to "localhost" to make it work.')
   .option('--scope <scopes...>',
     'List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".',
     scope => scope.split(',').trim().join(','))
