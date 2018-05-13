@@ -9,10 +9,10 @@ const { makeServer } = require('./server');
 program
   .version(version)
   .usage('[options]')
-  .option('--id <id>', 'client-id obtained from the connected app.')
-  .option('--secret <secret>', 'client-secret obtained from the connected app.')
+  .option('--id <id>', '* client-id obtained from the connected app.')
+  .option('--secret <secret>', '* client-secret obtained from the connected app.')
   .option('--redirect <redirect>',
-    `Callback URL that you registered. To generate <grant_token> is required "localhost".`)
+    `* Callback URL that you registered. To generate <grant_token> is required "localhost".`)
   .option('--code <grant_token>',
     `If not present, will be generated. Is required to redirect to "localhost" URL to get this work.`)
   .option('--scope <scopes...>',
@@ -23,7 +23,9 @@ program
   .option('-s, --server <server>',
     `Zoho API authentication server. Default value is "eu".`)
   .option('-o, --output <output>', 'Output file name.')
-  .on('--help', () => console.log())
+  .on('--help', () => console.log(`
+    * required fields.
+    `))
   .parse(process.argv);
 
 let { id, secret, redirect, code, scope, port, server, output } = validateOptions(program);
