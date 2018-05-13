@@ -7,7 +7,6 @@ const { version } = require('./package');
 const { makeServer } = require('./server');
 
 program
-  .version(version)
   .usage('[options]')
   .option('--id <id>',
     '* client-id obtained from the connected app.')
@@ -31,6 +30,7 @@ program
   .on('--help', () => console.log(`
     * required fields.
     `))
+  .version(version)
   .parse(process.argv);
 
 let { id, secret, redirect, code, scope, port, server, output } = validateOptions(program);
