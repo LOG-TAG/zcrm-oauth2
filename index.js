@@ -23,6 +23,7 @@ program
   .option('-s, --server <server>',
     `Zoho API authentication server. Default value is "eu".`)
   .option('-o, --output <output>', 'Output file name.')
+  .on('--help', () => console.log())
   .parse(process.argv);
 
 let { id, secret, redirect, code, scope, port, server, output } = validateOptions(program);
