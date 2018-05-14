@@ -4,6 +4,12 @@
 
 CLI module built to simplify the the generation of the `access token` and `refresh token` for **Zoho CRM API v2**. 
 
+## Table of contents
+
+- [Installing / Getting started](#installing--getting-started)
+- [Versioning](#versioning)
+- [License](#license)
+
 ## Installing / Getting started
 
 > This procedure will be edited once the module will be published in the npm registry
