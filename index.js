@@ -40,25 +40,14 @@ port = port || 8000;
 server = server || 'eu';
 output = output || makeOutputFileName();
 
-main(
-  { id, secret, redirect, code },
-  port,
-  server,
-  output
-);
-
-function main(oauth, port) {
-  const { id, code } = oauth;
-
-  if (code)
-    sendRequest(oauth);
-  else
-    makeServer(
-      port,
-      { id, server, scope },
-      code => sendRequest({ ...oauth, code })
-    );
-}
+if (code)
+  sendRequest(code);
+else
+  makeServer(
+    port,
+    { id, server, scope },
+    sendRequest
+  );
 
 function validateOptions(program) {
   const { file } = program;
@@ -118,8 +107,7 @@ function error(error) {
   process.exit(1);
 }
 
-function sendRequest(oauth) {
-  const { code, redirect, id, secret } = oauth;
+function sendRequest(code) {
   request.post(`https://accounts.zoho.${server}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err)
