@@ -7,7 +7,7 @@ CLI module built to simplify the the generation of the `access token` and `refre
 ## Table of contents
 
 - [Installing / Getting started](#installing--getting-started)
-- [Options](#options)
+- [Usage examples](#usage-examples)
 - [Generating the `grant code`](#generating-the-grant-code)
 - [Versioning](#versioning)
 - [License](#license)
@@ -50,11 +50,9 @@ npm install
 
 That's it. You can start working on it!
 
-## Options
+## Usage examples
 
 ```shell
-$ zcrm-oauth -h
-
 Usage: zcrm-oauth [options]
 
   Options:
@@ -74,13 +72,11 @@ Usage: zcrm-oauth [options]
     * required fields.
 ```
 
-### Usage examples
-
 You can use this tool to generate the `access token` and the `refresh token` if you have already generated your
 own `grant code` or not. If the `--code` option (that is the `grant code`) will not be provided, the tool will generate
 it for you.
 
-#### Generating the `grant code`
+### Generating the `grant code`
 
 Example usage:
 
