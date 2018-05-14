@@ -6,18 +6,19 @@ CLI module built to simplify the authentication process for **Zoho CRM API v2**.
 
 ## Installing / Getting started
 
+> This procedure will be edited once the module will be published in the npm registry
+
 In _development_ you can clone this repository and use it with the following commands:
 
 ```shell
-cd zcrm-oauth/
-npm install
-node index.js [options]
+git clone https://github.com/crmpartners/zcrm-oauth.git
+npm install zcrm-oauth/
 ```
 
 To display all the CLI options:
 
 ```shell
-node index.js -h
+node zcrm-oauth -h
 ```
 
 You can also install the module globally but **this is not recommended** until this project becomes an official
