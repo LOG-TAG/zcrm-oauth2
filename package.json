@@ -16,6 +16,9 @@
     "url": "https://www.linkedin.com/in/domenico-ruggiano/"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "commander": "^2.15.1",
     "express": "^4.16.3",
