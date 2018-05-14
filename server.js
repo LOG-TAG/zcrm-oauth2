@@ -1,3 +1,5 @@
+'use strict';
+
 const app = require('express')();
 const opn = require('opn');
 let instance;

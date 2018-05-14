@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+
+'use strict';
+
 const program = require('commander');
 const url = require('url');
 const request = require('request');
