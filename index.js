@@ -130,6 +130,7 @@ function sendRequest(oauth) {
 }
 
 function writeOutputFile(content) {
+  content = JSON.stringify(JSON.parse(content), null, 4); // formatting JSON
   fs.writeFileSync(output, content);
   console.log(content);
   console.log(`Result sucessfully exported in '${output}'.`);
