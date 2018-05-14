@@ -1,7 +1,7 @@
 {
   "name": "zcrm-oauth",
   "version": "1.1.0-beta",
-  "description": "",
+  "description": "CLI module built to simplify the generation of the access-token and refresh-token for Zoho CRM API v2.",
   "main": "index.js",
   "keywords": [
     "zoho",
