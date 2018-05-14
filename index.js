@@ -44,8 +44,7 @@ if (code)
   sendRequest(code);
 else
   makeServer(
-    port,
-    { id, server, scope },
+    { id, server, scope, port },
     sendRequest
   );
 
