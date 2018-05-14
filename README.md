@@ -94,19 +94,19 @@ This will generate your tokens.
 Example usage:
 
 ```shell
-zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:8000/callback 
+zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:8000/ 
 ```
 
 Note:
 
-> If you want to generate the `grant code` automatically with this tools you need to set **http://localhost:[port]/callback** 
+> If you want to generate the `grant code` automatically with this tools you need to set **http://localhost:[port]/** 
 as redirect URL in you application configuration. The default port is `8000`, but you can set your own value passing
 the option `--port`.
 
 Generating the `grant code` using a different port than 8000:
 
 ```shell
-zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:3333/callback -p 3333
+zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:3333/ -p 3333
 ```
 
 You can also specify the **scope** of the `grant code` specifying the privileges that the application will need using 
@@ -117,7 +117,7 @@ The default value is `ZohoCRM.modules.ALL` that will grant you full access to th
 If you want, for example, obtain access to the `Leads` and `Accounts` modules only, you will just have to type:
 
 ```shell
-zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:8000/callback --scope ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts
+zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:8000/ --scope ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts
 ```
 
 ### Using `--file` instead of options

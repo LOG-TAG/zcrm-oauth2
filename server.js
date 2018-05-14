@@ -10,7 +10,7 @@ function makeServer(options, onCodeReceived) {
   // open the browser
   opn(`https://accounts.zoho.${server}/oauth/v2/auth?scope=${scope}&client_id=${id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/callback`);
 
-  app.get('/callback', (req, res) => {
+  app.get('/', (req, res) => {
     const code = req.query.code;
     res.send('You can close the browser now.');
 
