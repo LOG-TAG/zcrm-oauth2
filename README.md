@@ -2,7 +2,7 @@
 
 # ZCRM OAuth2 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
-CLI module built to simplify the generation of the `access token` and `refresh token` for **Zoho CRM API v2**. 
+CLI module built to simplify the generation of the `access token` and `refresh token` for Self client application for  **Zoho CRM API v2**. 
 
 ## Table of contents
 
