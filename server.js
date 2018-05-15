@@ -5,10 +5,10 @@ const opn = require('opn');
 let instance;
 
 function makeServer(options, onCodeReceived) {
-  const { id, location, scope, port } = options;
+  const port = options.port;
 
   // open the browser
-  opn(`https://accounts.zoho.${location}/oauth/v2/auth?scope=${scope}&client_id=${id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/`);
+  opn(`https://accounts.zoho.${options.location}/oauth/v2/auth?scope=${options.scope}&client_id=${options.id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/`);
 
   app.get('/', (req, res) => {
     const code = req.query.code;
@@ -24,4 +24,4 @@ function makeServer(options, onCodeReceived) {
   instance = app.listen(port, () => console.log(`Server running on port ${port}...`));
 }
 
-module.exports = { makeServer };
+module.exports = makeServer;

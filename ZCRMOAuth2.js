@@ -5,8 +5,8 @@ const program = require('commander');
 const url = require('url');
 const request = require('request');
 const fs = require('fs');
-const { version } = require('./package');
-const { makeServer } = require('./server');
+const packageJSON = require('./package');
+const makeServer = require('./server');
 
 program
   .usage('[options]')
@@ -32,15 +32,18 @@ program
   .on('--help', () => console.log(`
     * required fields.
     `))
-  .version(version)
+  .version(packageJSON.version)
   .parse(process.argv);
 
-let { id, secret, redirect, code, scope, port, location, output } = validateOptions(program);
-code = code || false;
-scope = scope || 'ZohoCRM.modules.ALL';
-port = port || 8000;
-location = location || 'eu';
-output = output || makeOutputFileName();
+const options = validateOptions(program),
+  id = options.id,
+  secret = options.secret,
+  redirect = options.redirect,
+  code = options.code || false,
+  scope = options.scope || 'ZohoCRM.modules.ALL',
+  port = options.port || 8000,
+  location = options.location || 'eu',
+  output = options.output || makeOutputFileName();
 
 if (code)
   sendRequest(code);
@@ -51,9 +54,8 @@ else
   );
 
 function validateOptions(program) {
-  const { file } = program;
-  const importFromFile = file || false;
-  let validate = importFromFile ? validateFile(file) : program;
+  const importFromFile = program.file || false;
+  let validate = importFromFile ? validateFile(importFromFile) : program;
 
   const required = ['id', 'secret', 'redirect'];
 
@@ -64,14 +66,10 @@ function validateOptions(program) {
     error(`You must specify valid ${missing.join(', ')}`);
 
   // check if user wants to generate code but is using another redirect then "localhost"
-  const { code, redirect } = validate;
-  if (!code && redirect && url.parse(redirect).hostname !== 'localhost')
+  if (!validate.code && validate.redirect && url.parse(validate.redirect).hostname !== 'localhost')
     error(`You must use a "localhost" redirect if you want to generate the code "grant_token".`);
 
-  return {
-    ...program,
-    ...validate
-  };
+  return Object.assign({}, program, validate);
 }
 
 function makeOutputFileName() {
