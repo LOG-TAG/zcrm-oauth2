@@ -59,17 +59,17 @@ Usage: zcrm-oauth2 [options]
 
   Options:
 
-    --id <id>              * client-id obtained from the connected app.
-    --secret <secret>      * client-secret obtained from the connected app.
-    --redirect <redirect>  * Callback URL that you registered. To generate <grant_token> is required "localhost".
-    --code <grant_token>   If not present, will be generated. It requires to redirect to "localhost" to make it work.
-    --scope <scopes...>    List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".
-    -p, --port <port>      The local server port to generate <grant_toke>. Default value is "8000".
-    -f, --file <file>      File containing options parameters.
-    -s, --server <server>  Zoho API authentication server. Default value is "eu".
-    -o, --output <output>  Output file name.
-    -V, --version          output the version number
-    -h, --help             output usage information
+    --id <id>                  * client-id obtained from the connected app.
+    --secret <secret>          * client-secret obtained from the connected app.
+    --redirect <redirect>      * Callback URL that you registered. To generate <grant_token> is required "localhost".
+    --code <grant_token>       If not present, will be generated. It requires to redirect to "localhost" to make it work.
+    --scope <scopes...>        List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".
+    -p, --port <port>          The local server port to generate <grant_toke>. Default value is "8000".
+    -f, --file <file>          File containing options parameters.
+    -l, --location <location>  Zoho API authentication location. Default value is "eu".
+    -o, --output <output>      Output file name.
+    -V, --version              output the version number
+    -h, --help                 output usage information
 
     * required fields.
 ```
@@ -132,7 +132,7 @@ The file must follow the **JSON** syntax.
 For example, the following line of execution:
 
 ```shell
-zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:2345 --port 2345 --scope ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts --server com
+zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:2345 --port 2345 --scope ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts --location com
 ```
 
 can become:
@@ -143,16 +143,16 @@ zcrm-oauth2 -f ./auth.json
 
 and the `./auth.json` file should look like this:
 
-```json
+
 {
     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "redirect": "http://localhost:2345",
     "port": "2345",
     "scope": "ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts",
-    "server": "com"
+    "location": "com"
 }
-```
+
 
 This can help you in keeping your parameters organized and could be easier if you need to edit them.
 

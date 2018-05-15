@@ -25,8 +25,8 @@ program
     'The local server port to generate <grant_toke>. Default value is "8000".')
   .option('-f, --file <file>',
     'File containing options parameters.')
-  .option('-s, --server <server>',
-    'Zoho API authentication server. Default value is "eu".')
+  .option('-l, --location <location>',
+    'Zoho API authentication location. Default value is "eu".')
   .option('-o, --output <output>',
     'Output file name.')
   .on('--help', () => console.log(`
@@ -35,18 +35,18 @@ program
   .version(version)
   .parse(process.argv);
 
-let { id, secret, redirect, code, scope, port, server, output } = validateOptions(program);
+let { id, secret, redirect, code, scope, port, location, output } = validateOptions(program);
 code = code || false;
 scope = scope || 'ZohoCRM.modules.ALL';
 port = port || 8000;
-server = server || 'eu';
+location = location || 'eu';
 output = output || makeOutputFileName();
 
 if (code)
   sendRequest(code);
 else
   makeServer(
-    { id, server, scope, port },
+    { id, location, scope, port },
     sendRequest
   );
 
@@ -109,7 +109,7 @@ function error(error) {
 }
 
 function sendRequest(code) {
-  request.post(`https://accounts.zoho.${server}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
+  request.post(`https://accounts.zoho.${location}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err)
         error(`Error in Zoho response: ${err.message}`);
