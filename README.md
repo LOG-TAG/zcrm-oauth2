@@ -147,7 +147,7 @@ zcrm-oauth2 -f ./auth.json
 
 and the `./auth.json` file should look like this:
 
-
+```
 {
     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -156,7 +156,7 @@ and the `./auth.json` file should look like this:
     "scope": "ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts",
     "location": "com"
 }
-
+```
 
 This can help you in keeping your parameters organized and could be easier if you need to edit them.
 
