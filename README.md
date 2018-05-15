@@ -40,6 +40,10 @@ npm install -g
 zcrm-oauth2 [options]
 ``` 
 
+### Prerequisites
+
+Required Node >= v4.0.0
+
 ### Setting up Dev
 
 Everything you need to do is:
