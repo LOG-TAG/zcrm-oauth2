@@ -8,7 +8,7 @@ function makeServer(options, onCodeReceived) {
   const { id, server, scope, port } = options;
 
   // open the browser
-  opn(`https://accounts.zoho.${server}/oauth/v2/auth?scope=${scope}&client_id=${id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/callback`);
+  opn(`https://accounts.zoho.${server}/oauth/v2/auth?scope=${scope}&client_id=${id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/`);
 
   app.get('/', (req, res) => {
     const code = req.query.code;
