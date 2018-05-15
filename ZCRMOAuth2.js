@@ -46,11 +46,11 @@ const options = validateOptions(program),
   output = options.output || makeOutputFileName();
 
 if (code)
-  sendRequest(code);
+  getOAuth(code);
 else
   makeServer(
     { id, location, scope, port },
-    sendRequest
+    getOAuth
   );
 
 function validateOptions(program) {
@@ -106,7 +106,7 @@ function error(error) {
   process.exit(1);
 }
 
-function sendRequest(code) {
+function getOAuth(code) {
   request.post(`https://accounts.zoho.${location}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err)
