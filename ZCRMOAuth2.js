@@ -43,36 +43,36 @@ const options = validateOptions(program),
   scope = options.scope || 'ZohoCRM.modules.ALL',
   port = options.port || 8000,
   location = options.location || 'eu',
-  output = options.output || makeOutputFileName();
+  output = options.output || generateOutputFileName();
 
 if (code)
-  getOAuth(code);
+  getTokens(code);
 else
   makeServer(
     { id, location, scope, port },
-    getOAuth
+    getTokens
   );
 
 function validateOptions(program) {
   const importFromFile = program.file || false;
-  let validate = importFromFile ? validateFile(importFromFile) : program;
+  let validation = importFromFile ? validateFile(importFromFile) : program;
 
-  const required = ['id', 'secret', 'redirect'];
+  const requiredOptions = ['id', 'secret', 'redirect'];
 
-  // check if any of the required fields id undefiend
-  const missing = required.filter(item => typeof validate[item] === 'undefined');
+  // check if any of the required fields is undefiend
+  const missing = requiredOptions.filter(item => typeof validation[item] === 'undefined');
 
   if (missing.length)
     error(`You must specify valid ${missing.join(', ')}`);
 
   // check if user wants to generate code but is using another redirect then "localhost"
-  if (!validate.code && validate.redirect && url.parse(validate.redirect).hostname !== 'localhost')
+  if (!validation.code && validation.redirect && url.parse(validation.redirect).hostname !== 'localhost')
     error(`You must use a "localhost" redirect if you want to generate the code "grant_token".`);
 
-  return Object.assign({}, program, validate);
+  return Object.assign({}, program, validation);
 }
 
-function makeOutputFileName() {
+function generateOutputFileName() {
   const now = new Date();
   const twoDigits = data => `0${data}`.slice(-2);
   const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
@@ -106,7 +106,7 @@ function error(error) {
   process.exit(1);
 }
 
-function getOAuth(code) {
+function getTokens(code) {
   request.post(`https://accounts.zoho.${location}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
     (err, resp, body) => {
       if (err)
@@ -120,6 +120,7 @@ function writeOutputFile(content) {
   content = JSON.stringify(JSON.parse(content), null, 4); // formatting JSON
   fs.writeFileSync(output, content);
   console.log(content);
+  console.log();
   console.log(`Result sucessfully exported in '${output}'.`);
   process.exit(0);
 }
