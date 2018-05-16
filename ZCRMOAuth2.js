@@ -12,11 +12,11 @@ const makeServer = require('./server');
 program
   .usage('[options]')
   .option('--id <id>',
-    '* client-id obtained from the connected app.')
+    `${chalk.green('*')} client-id obtained from the connected app.`)
   .option('--secret <secret>',
-    '* client-secret obtained from the connected app.')
+    `${chalk.green('*')} client-secret obtained from the connected app.`)
   .option('--redirect <redirect>',
-    '* Callback URL that you registered. To generate <grant_token> is required "localhost".')
+    `${chalk.green('*')} Callback URL that you registered. To generate <grant_token> is required "localhost".`)
   .option('--code <grant_token>',
     'If not present, will be generated. It requires to redirect to "localhost" to make it work.')
   .option('--scope <scopes...>',
@@ -31,13 +31,13 @@ program
   .option('-o, --output <output>',
     'Output file name.')
   .on('--help', () => console.log(`
-    * required fields.
+    ${chalk.green('* required fields.')}
     
     You can find more about the usage on the official repository:
-      https://github.com/crmpartners/zcrm-oauth2
+      ${chalk.cyan('https://github.com/crmpartners/zcrm-oauth2')}
       
     If you have any problems, do not hesitate to file an issue:
-      https://github.com/crmpartners/zcrm-oauth2/issues
+      ${chalk.cyan('https://github.com/crmpartners/zcrm-oauth2/issues')}
      `))
   .version(packageJSON.version)
   .parse(process.argv);
