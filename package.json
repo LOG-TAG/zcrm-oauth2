@@ -1,6 +1,6 @@
 {
   "name": "zcrm-oauth2",
-  "description": "CLI to generate access and refresh token for Self Client application for Zoho CRM API v2.",
+  "description": "CLI to generate access and refresh token for self-client application for Zoho CRM API v2.",
   "keywords": [
     "zoho",
     "crm",
