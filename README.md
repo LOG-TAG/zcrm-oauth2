@@ -32,7 +32,7 @@ $ zcrm-oauth2 -h
 
 ### Prerequisites
 
-Required Node >= v4.0.0
+Node >= v4.0.0 is required.
 
 ### Setting up Dev
 
