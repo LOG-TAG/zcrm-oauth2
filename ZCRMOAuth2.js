@@ -31,7 +31,13 @@ program
     'Output file name.')
   .on('--help', () => console.log(`
     * required fields.
-    `))
+    
+    You can find more about the usage on the official repository:
+      https://github.com/crmpartners/zcrm-oauth2
+      
+    If you have any problems, do not hesitate to file an issue:
+      https://github.com/crmpartners/zcrm-oauth2/issues
+     `))
   .version(packageJSON.version)
   .parse(process.argv);
 
