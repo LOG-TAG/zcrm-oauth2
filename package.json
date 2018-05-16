@@ -1,8 +1,6 @@
 {
   "name": "zcrm-oauth2",
-  "version": "1.1.0-beta",
-  "description": "CLI to generate access and refresh token for Self Client application for Zoho CRM API v2.",
-  "main": "index.js",
+  "description": "CLI to generate access and refresh token for self-client application for Zoho CRM API v2.",
   "keywords": [
     "zoho",
     "crm",
@@ -10,26 +8,31 @@
     "api",
     "ZohoCRM"
   ],
+  "version": "1.1.1",
   "author": {
     "name": "Domenico Ruggiano",
     "email": "domenico.ruggiano@crmpartners.it",
     "url": "https://www.linkedin.com/in/domenico-ruggiano/"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crmpartners/zcrm-oauth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crmpartners/zcrm-oauth2/issues"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=4"
+  },
+  "main": "index.js",
+  "bin": {
+    "zcrm-oauth2": "./index.js"
   },
   "dependencies": {
     "commander": "^2.15.1",
     "express": "^4.16.3",
     "opn": "^5.3.0",
     "request": "^2.85.0"
-  },
-  "bin": {
-    "zcrm-oauth2": "./index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/crmpartners/zcrm-oauth.git"
   }
 }
