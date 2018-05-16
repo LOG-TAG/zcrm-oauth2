@@ -152,7 +152,8 @@ and so on.
 
 ### Classic use case
 
-You want to have an access and refresh token as fast as possible for your **self client** app.
+You want to have an access and refresh token as fast as possible for your **self-client** app and you don't
+want to follow the guidelines described [here](https://www.zoho.com/crm/help/api/v2/#oauth-request) to generate the grant token first.
 
 If you want to generate automatically the grant token, you need to run this tool in a machine
 with a browser installed.
@@ -161,12 +162,16 @@ Follow this steps:
 
 1. Go to <https://accounts.zoho.com/developerconsole> and create your app. 
 Use **http://localhost:8000/** as redirect URL
+![_1](https://user-images.githubusercontent.com/30785662/40118638-c6b709e8-591a-11e8-80f8-0221edfdf768.gif)
 
 2. Copy your _client id_ and _client secret_ and paste it in a JSON file "auth.json"
+![_2](https://user-images.githubusercontent.com/30785662/40118645-c9b70ad0-591a-11e8-87a9-6d2ce68c42e5.gif)
 
 3. Add to the JSON file the additional options you need to run for the specific authentication
+![_3](https://user-images.githubusercontent.com/30785662/40118648-cc002b32-591a-11e8-95b7-8837e2f36a98.gif)
 
 4. Run the tool and get the access and refresh tokens!
+![_4](https://user-images.githubusercontent.com/30785662/40118654-cf351f42-591a-11e8-9676-47aa8d9c5806.gif)
 
 ## Versioning
 
