@@ -2,7 +2,7 @@
 
 CLI module built to simplify the generation of the `access token` and `refresh token` for self-client application for  **Zoho CRM API v2**. 
 
-This can be a useful tools if you want to generate quickly an access token to test or make some calls to the Zoho CRM APIs (using [Postman](https://www.getpostman.com/), for example)
+This can be a useful tools if quickly you want to have an access token to test or use Zoho CRM APIs (using [Postman](https://www.getpostman.com/), for example)
 and you don't want to generate the tokens manually or setting up any of the [Zoho SDKs](https://www.zoho.com/crm/help/api/v2/) environments.
 
 Take a look to [the classic use case](#classic-use-case) for a quick _how to_ explanation.
