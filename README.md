@@ -9,6 +9,7 @@ CLI module built to simplify the generation of the `access token` and `refresh t
 - [Generating the `access token` and `refresh token`](#generating-the-access-token-and-refresh-token)
 - [Generating the `access token` and `refresh token` without having the `grant code`](#generating-the-access-token-and-refresh-token-without-having-the-grant-code)
 - [Using `--file` instead of options](#using---file-instead-of-options)
+- [**Classic use case**](#classic-use-case)
 - [Versioning](#versioning)
 - [License](#license)
 
@@ -148,6 +149,24 @@ This can help you in keeping your parameters organized and could be easier if yo
 
 Note that the keys in the json file are the words without `--` in the options. For example, for `--port` you use `port` 
 and so on.      
+
+### Classic use case
+
+You want to have an access and refresh token as fast as possible for your **self client** app.
+
+If you want to generate automatically the grant token, you need to run this tool in a machine
+with a browser installed.
+
+Follow this steps:
+
+1. Go to <https://accounts.zoho.com/developerconsole> and create your app. 
+Use **http://localhost:8000/** as redirect URL
+
+2. Copy your _client id_ and _client secret_ and paste it in a JSON file "auth.json"
+
+3. Add to the JSON file the additional options you need to run for the specific authentication
+
+4. Run the tool and get the access and refresh tokens!
 
 ## Versioning
 
