@@ -69,7 +69,10 @@ function validateOptions(program) {
   const missing = requiredOptions.filter(item => typeof validation[item] === 'undefined');
 
   if (missing.length)
-    error(`You must specify valid ${missing.join(', ')}`);
+    error(
+      `You must specify valid ${missing.join(', ')}.`,
+      `Run ${packageJSON.name} --help to see all options.`
+    );
 
   // check if user wants to generate code but is using another redirect then "localhost"
   if (!validation.code && validation.redirect && url.parse(validation.redirect).hostname !== 'localhost')
@@ -107,8 +110,14 @@ function validateFile(file) {
   }
 }
 
-function error(error) {
+function error(error, suggestion) {
   console.log(error);
+
+  if (typeof suggestion !== 'undefined') {
+    console.log();
+    console.log(suggestion);
+  }
+
   process.exit(1);
 }
 
