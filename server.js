@@ -5,7 +5,7 @@ const opn = require('opn');
 const chalk = require('chalk');
 let instance;
 
-function makeServer(options, onCodeReceived) {
+module.exports = function makeServer(options, callback) {
   const port = options.port;
 
   // open the browser
@@ -19,13 +19,11 @@ function makeServer(options, onCodeReceived) {
       console.log('Server closed');
     });
 
-    onCodeReceived(code);
+    callback(code);
   });
 
   instance = app.listen(port, () => {
     console.log(chalk.green(`Server running on port ${chalk.bold.white(port)}...`));
     console.log();
   });
-}
-
-module.exports = makeServer;
+};
