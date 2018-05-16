@@ -1,5 +1,3 @@
-> Please note that this project is currently in **beta** and is not ready for production.
-
 # ZCRM OAuth2 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
 CLI module built to simplify the generation of the `access token` and `refresh token` for Self client application for  **Zoho CRM API v2**. 
@@ -16,28 +14,14 @@ CLI module built to simplify the generation of the `access token` and `refresh t
 
 ## Installing / Getting started
 
-> This procedure will be edited once the module will be published in the npm registry
-
-In _development_ you can clone this repository and use it with the following commands:
-
 ```shell
-git clone https://github.com/crmpartners/zcrm-oauth2.git
-npm install zcrm-oauth2/
+npm install -g zcrm-oauth2
 ```
 
-To display all the CLI options:
+To see all the CLI options:
 
 ```shell
-node zcrm-oauth2 -h
-```
-
-You can also install the module globally but **this is not recommended** until this project becomes an official
-npm module:
-
-```shell
-cd zcrm-oauth2/
-npm install -g
-zcrm-oauth2 [options]
+zcrm-oauth2 -h
 ``` 
 
 ### Prerequisites
