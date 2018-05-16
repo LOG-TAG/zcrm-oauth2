@@ -2,6 +2,8 @@
 
 CLI module built to simplify the generation of the `access token` and `refresh token` for Self client application for  **Zoho CRM API v2**. 
 
+Take a look to [classic use case](#classic-use-case) for a quick _how to_ explanation.
+
 ## Table of contents
 
 - [Installing / Getting started](#installing--getting-started)
