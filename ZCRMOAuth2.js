@@ -95,24 +95,30 @@ function validateFile(file) {
     const stats = fs.lstatSync(file);
 
     if (!stats.isFile())
-      error(`'${file}' doesn't seem to be a file.`);
+      error(`${chalk.bold.white(file)} doesn't seem to be a file.`);
 
     const fileContent = fs.readFileSync(file);
 
     try {
       return JSON.parse(fileContent);
     } catch (e2) {
-      console.log(`Error parsing ${file}`);
+      console.log(
+        `${chalk.bgRed('Error parsing')} ${chalk.bold.white(file)}`
+      );
+
       error(e2.message);
     }
   } catch (e) {
-    console.log(`Error reading ${file}.`);
+    console.log(
+      `${chalk.bgRed('Error reading')} ${chalk.bold.white(file)}.`
+    );
+
     error(e.message);
   }
 }
 
 function error(error, suggestion) {
-  console.log(chalk.red(error));
+  console.log(chalk.bgRed(error));
 
   if (typeof suggestion !== 'undefined') {
     console.log();
