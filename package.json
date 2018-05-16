@@ -31,5 +31,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crmpartners/zcrm-oauth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crmpartners/zcrm-oauth2/issues"
   }
 }
