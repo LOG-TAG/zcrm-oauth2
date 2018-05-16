@@ -2,6 +2,7 @@
 
 const app = require('express')();
 const opn = require('opn');
+const chalk = require('chalk');
 let instance;
 
 function makeServer(options, onCodeReceived) {
@@ -21,7 +22,10 @@ function makeServer(options, onCodeReceived) {
     onCodeReceived(code);
   });
 
-  instance = app.listen(port, () => console.log(`Server running on port ${port}...`));
+  instance = app.listen(port, () => {
+    console.log(chalk.green(`Server running on port ${chalk.bold.white(port)}...`));
+    console.log();
+  });
 }
 
 module.exports = makeServer;

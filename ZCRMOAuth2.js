@@ -5,6 +5,7 @@ const program = require('commander');
 const url = require('url');
 const request = require('request');
 const fs = require('fs');
+const chalk = require('chalk');
 const packageJSON = require('./package');
 const makeServer = require('./server');
 
@@ -71,7 +72,7 @@ function validateOptions(program) {
   if (missing.length)
     error(
       `You must specify valid ${missing.join(', ')}.`,
-      `Run ${packageJSON.name} --help to see all options.`
+      `Run ${chalk.cyan(`${packageJSON.name} --help`)} to see all options.`
     );
 
   // check if user wants to generate code but is using another redirect then "localhost"
@@ -111,7 +112,7 @@ function validateFile(file) {
 }
 
 function error(error, suggestion) {
-  console.log(error);
+  console.log(chalk.red(error));
 
   if (typeof suggestion !== 'undefined') {
     console.log();
@@ -136,6 +137,6 @@ function writeOutputFile(content) {
   fs.writeFileSync(output, content);
   console.log(content);
   console.log();
-  console.log(`Result sucessfully exported in '${output}'.`);
+  console.log(chalk.cyan(`Result sucessfully exported in ${chalk.bold.white(output)}.`));
   process.exit(0);
 }
