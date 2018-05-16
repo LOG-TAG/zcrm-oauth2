@@ -129,7 +129,18 @@ function error(error, suggestion) {
 }
 
 function getTokens(code) {
-  request.post(`https://accounts.zoho.${location}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
+  const qs = {
+    code,
+    redirect_uri: redirect,
+    client_id: id,
+    client_secret: secret,
+    grant_type: 'authorization_code'
+  };
+
+  request.post({
+      url: `https://accounts.zoho.${location}/oauth/v2/token`,
+      qs
+    },
     (err, resp, body) => {
       if (err)
         error(`Error in Zoho response: ${err.message}`);
