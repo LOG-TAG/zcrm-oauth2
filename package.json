@@ -8,7 +8,7 @@
     "api",
     "ZohoCRM"
   ],
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": {
     "name": "Domenico Ruggiano",
     "email": "domenico.ruggiano@crmpartners.it",
@@ -30,6 +30,7 @@
     "zcrm-oauth2": "./index.js"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
     "commander": "^2.15.1",
     "express": "^4.16.3",
     "opn": "^5.3.0",

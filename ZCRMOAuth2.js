@@ -5,17 +5,18 @@ const program = require('commander');
 const url = require('url');
 const request = require('request');
 const fs = require('fs');
+const chalk = require('chalk');
 const packageJSON = require('./package');
 const makeServer = require('./server');
 
 program
   .usage('[options]')
   .option('--id <id>',
-    '* client-id obtained from the connected app.')
+    `${chalk.green('*')} client-id obtained from the connected app.`)
   .option('--secret <secret>',
-    '* client-secret obtained from the connected app.')
+    `${chalk.green('*')} client-secret obtained from the connected app.`)
   .option('--redirect <redirect>',
-    '* Callback URL that you registered. To generate <grant_token> is required "localhost".')
+    `${chalk.green('*')} Callback URL that you registered. To generate <grant_token> is required "localhost".`)
   .option('--code <grant_token>',
     'If not present, will be generated. It requires to redirect to "localhost" to make it work.')
   .option('--scope <scopes...>',
@@ -30,8 +31,14 @@ program
   .option('-o, --output <output>',
     'Output file name.')
   .on('--help', () => console.log(`
-    * required fields.
-    `))
+    ${chalk.green('* required fields.')}
+    
+    You can find more about the usage on the official repository:
+      ${chalk.cyan('https://github.com/crmpartners/zcrm-oauth2')}
+      
+    If you have any problems, do not hesitate to file an issue:
+      ${chalk.cyan('https://github.com/crmpartners/zcrm-oauth2/issues')}
+     `))
   .version(packageJSON.version)
   .parse(process.argv);
 
@@ -43,36 +50,83 @@ const options = validateOptions(program),
   scope = options.scope || 'ZohoCRM.modules.ALL',
   port = options.port || 8000,
   location = options.location || 'eu',
-  output = options.output || makeOutputFileName();
+  output = options.output || generateOutputFileName();
 
 if (code)
-  getOAuth(code);
+  getTokens(code);
 else
   makeServer(
     { id, location, scope, port },
-    getOAuth
+    getTokens
   );
+
+/**
+ * Verify that all the required options have been set.
+ * If the options are imported from file, joins the JSON obj with 'program'.
+ * @param {Object} program
+ * @returns {Object} - list of options
+ */
 
 function validateOptions(program) {
   const importFromFile = program.file || false;
-  let validate = importFromFile ? validateFile(importFromFile) : program;
+  let validation = importFromFile ? validateFile(importFromFile) : program;
 
-  const required = ['id', 'secret', 'redirect'];
-
-  // check if any of the required fields id undefiend
-  const missing = required.filter(item => typeof validate[item] === 'undefined');
-
+  // check if any of the required options is undefiend
+  const requiredOptions = ['id', 'secret', 'redirect'];
+  const missing = requiredOptions.filter(item => typeof validation[item] === 'undefined');
   if (missing.length)
-    error(`You must specify valid ${missing.join(', ')}`);
+    error(
+      `You must specify valid ${missing.join(', ')}.`,
+      `Run ${chalk.cyan(`${packageJSON.name} --help`)} to see all options.`
+    );
 
-  // check if user wants to generate code but is using another redirect then "localhost"
-  if (!validate.code && validate.redirect && url.parse(validate.redirect).hostname !== 'localhost')
+  // check if user wants to generate the grant code but is using another redirect rather then "localhost"
+  if (!validation.code && validation.redirect && url.parse(validation.redirect).hostname !== 'localhost')
     error(`You must use a "localhost" redirect if you want to generate the code "grant_token".`);
 
-  return Object.assign({}, program, validate);
+  return Object.assign({}, program, validation);
 }
 
-function makeOutputFileName() {
+/**
+ * Verify that the file passed as option is an existing file, is readable and
+ * can be parse as JSON file.
+ * @param {string} file - file path given with --file option
+ * @returns {Object} - object parsed from JSON
+ */
+
+function validateFile(file) {
+  try {
+    const stats = fs.lstatSync(file);
+
+    if (!stats.isFile())
+      error(`${chalk.bold.white(file)} doesn't seem to be a file.`);
+
+    const fileContent = fs.readFileSync(file);
+
+    try {
+      return JSON.parse(fileContent);
+    } catch (e2) {
+      console.log(
+        `${chalk.bgRed('Error parsing')} ${chalk.bold.white(file)}`
+      );
+
+      error(e2.message);
+    }
+  } catch (e) {
+    console.log(
+      `${chalk.bgRed('Error reading')} ${chalk.bold.white(file)}.`
+    );
+
+    error(e.message);
+  }
+}
+
+/**
+ * Generates an output file named based on the current datetime.
+ * @returns {string} - generated output file name
+ */
+
+function generateOutputFileName() {
   const now = new Date();
   const twoDigits = data => `0${data}`.slice(-2);
   const date = `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
@@ -80,34 +134,42 @@ function makeOutputFileName() {
   return `out-${date}T${time}.json`;
 }
 
-function validateFile(file) {
-  try {
-    const stats = fs.lstatSync(file);
+/**
+ * Helper function that exits the process with code 1.
+ * @param {string} error - error message
+ * @param {string=} suggestion - optional suggestion string
+ */
 
-    if (!stats.isFile())
-      error(`'${file}' doesn't seem to be a file.`);
+function error(error, suggestion) {
+  console.log(chalk.bgRed(error));
 
-    const fileContent = fs.readFileSync(file);
-
-    try {
-      return JSON.parse(fileContent);
-    } catch (e2) {
-      console.log(`Error parsing ${file}`);
-      error(e2.message);
-    }
-  } catch (e) {
-    console.log(`Error reading ${file}.`);
-    error(e.message);
+  if (typeof suggestion !== 'undefined') {
+    console.log();
+    console.log(suggestion);
   }
-}
 
-function error(error) {
-  console.log(error);
   process.exit(1);
 }
 
-function getOAuth(code) {
-  request.post(`https://accounts.zoho.${location}/oauth/v2/token?code=${code}&redirect_uri=${redirect}&client_id=${id}&client_secret=${secret}&grant_type=authorization_code`,
+/**
+ * Make a POST request to OAuth2 Zoho CRM endpoint to get
+ * access and refresh tokens.
+ * @param {string} code - grant_token required to generate access and refresh tokens
+ */
+
+function getTokens(code) {
+  const qs = {
+    code,
+    redirect_uri: redirect,
+    client_id: id,
+    client_secret: secret,
+    grant_type: 'authorization_code'
+  };
+
+  request.post({
+      url: `https://accounts.zoho.${location}/oauth/v2/token`,
+      qs
+    },
     (err, resp, body) => {
       if (err)
         error(`Error in Zoho response: ${err.message}`);
@@ -116,10 +178,16 @@ function getOAuth(code) {
     });
 }
 
+/**
+ * Write the content into output file.
+ * @param {string} content
+ */
+
 function writeOutputFile(content) {
   content = JSON.stringify(JSON.parse(content), null, 4); // formatting JSON
   fs.writeFileSync(output, content);
   console.log(content);
-  console.log(`Result sucessfully exported in '${output}'.`);
+  console.log();
+  console.log(chalk.cyan(`Result sucessfully exported in ${chalk.bold.white(output)}.`));
   process.exit(0);
 }
