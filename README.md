@@ -1,5 +1,9 @@
 # ZCRM OAuth2 [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/crmpartners/zcrm-oauth2/blob/master/LICENSE)
 
+```shell
+$ npm i -g zcrm-oauth2
+```
+
 CLI module built to simplify the generation of the `access token` and `refresh token` for self-client applications using **Zoho CRM API v2**. 
 
 This can be a useful tool if you quickly want to have an access token to test or use the Zoho CRM APIs (using [Postman](https://www.getpostman.com/), for example)
