@@ -19,6 +19,8 @@ program
     `${chalk.green('*')} Callback URL that you registered. To generate <grant_token> is required "localhost".`)
   .option('--code <grant_token>',
     'If not present, will be generated. It requires to redirect to "localhost" to make it work.')
+  .option('--refresh <refresh_token>',
+    'refresh-token used to generate new access tokens.')
   .option('--scope <scopes...>',
     'List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".',
     scope => scope.split(',').trim().join(','))
@@ -46,13 +48,16 @@ const options = validateOptions(program),
   id = options.id,
   secret = options.secret,
   redirect = options.redirect,
+  refresh = options.refresh || false,
   code = options.code || false,
   scope = options.scope || 'ZohoCRM.modules.ALL',
   port = options.port || 8000,
   location = options.location || 'eu',
   output = options.output || generateOutputFileName();
 
-if (code)
+if (refresh)
+  refreshToken();
+else if (code)
   getTokens(code);
 else
   makeServer(
@@ -152,21 +157,41 @@ function error(error, suggestion) {
 }
 
 /**
- * Make a POST request to OAuth2 Zoho CRM endpoint to get
- * access and refresh tokens.
+ * Make request to generate access and refresh tokens.
  * @param {string} code - grant_token required to generate access and refresh tokens
  */
 
 function getTokens(code) {
-  const qs = {
+  makeRequest({
     code,
     redirect_uri: redirect,
     client_id: id,
     client_secret: secret,
     grant_type: 'authorization_code'
-  };
+  });
+}
 
-  request.post({
+/**
+ * Make request to refresh access token.
+ */
+
+function refreshToken() {
+  makeRequest({
+    refresh_token: refresh,
+    client_id: id,
+    client_secret: secret,
+    grant_type: 'refresh_token'
+  });
+}
+
+/**
+ * Make a POST request to OAuth2 Zoho CRM OAuth endpoint.
+ * @param {object} qs - query string
+ */
+
+function makeRequest(qs) {
+  request.post(
+    {
       url: `https://accounts.zoho.${location}/oauth/v2/token`,
       qs
     },
@@ -175,7 +200,8 @@ function getTokens(code) {
         error(`Error in Zoho response: ${err.message}`);
 
       writeOutputFile(body);
-    });
+    }
+  );
 }
 
 /**
