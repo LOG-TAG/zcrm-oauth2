@@ -15,6 +15,7 @@ Official Zoho documentation [here](https://www.zoho.com/crm/help/api/v2/).
 - [Usage examples](#usage-examples)
 - [Generating the access and refresh tokens](#generating-the-access-and-refresh-tokens)
 - [Generating the access and refresh tokens without having the `grant code`](#generating-the-access-and-refresh-tokens-without-having-the-grant-code)
+- [Refresh access token](#refresh-access-token)
 - [Using `--file` instead of any option](#using---file-instead-of-any-option)
 - [**Classic use case**](#classic-use-case)
 - [Versioning](#versioning)
@@ -49,6 +50,7 @@ Usage: zcrm-oauth2 [options]
     --secret <secret>          * client-secret obtained from the connected app.
     --redirect <redirect>      * Callback URL that you registered. To generate <grant_token> is required "localhost".
     --code <grant_token>       If not present, will be generated. It requires to redirect to "localhost" to make it work.
+    --refresh <refresh_token>  refresh-token used to generate new access tokens.
     --scope <scopes...>        List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".
     -p, --port <port>          The local server port to generate <grant_toke>. Default value is "8000".
     -f, --file <file>          File containing options parameters.
@@ -101,6 +103,15 @@ To obtain access to the _Leads_ and _Accounts_ modules only, for example:
 ```shell
 $ zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:8000/ --scope ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts
 ```
+
+### Refresh access token
+
+You can provide the `--refresh` option followed by the `refresh token` that you generated in the previous step to
+generate new access tokens when the current ones are past the expiry time.
+
+```shell
+$ zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:8000/ --refresh XXXXX
+``` 
 
 ### Using `--file` instead of any option
 
