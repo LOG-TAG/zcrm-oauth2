@@ -9,7 +9,7 @@ module.exports = function makeServer(options, callback) {
   const port = options.port;
 
   // open the browser
-  opn(`https://accounts.zoho.${options.location}/oauth/v2/auth?scope=${options.scope}&client_id=${options.id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/`);
+  opn(`https://accounts.zoho.${options.location}/oauth/v2/auth?scope=${options.scope}&client_id=${options.id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}`);
 
   app.get('/', (req, res) => {
     const code = req.query.code;
