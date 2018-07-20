@@ -1,15 +1,16 @@
 'use strict';
 
+const url = require('url');
 const app = require('express')();
 const opn = require('opn');
 const chalk = require('chalk');
 let instance;
 
 module.exports = function makeServer(options, callback) {
-  const port = options.port;
+  const port = url.parse(options.redirect).port || 80;
 
   // open the browser
-  opn(`https://accounts.zoho.${options.location}/oauth/v2/auth?scope=${options.scope}&client_id=${options.id}&response_type=code&access_type=offline&redirect_uri=http://localhost:${port}/`);
+  opn(`https://accounts.zoho.${options.location}/oauth/v2/auth?scope=${options.scope}&client_id=${options.id}&response_type=code&access_type=offline&redirect_uri=${options.redirect}`);
 
   app.get('/', (req, res) => {
     const code = req.query.code;

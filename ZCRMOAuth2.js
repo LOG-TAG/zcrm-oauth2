@@ -24,8 +24,6 @@ program
   .option('--scope <scopes...>',
     'List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".',
     scope => scope.split(',').trim().join(','))
-  .option('-p, --port <port>',
-    'The local server port to generate <grant_toke>. Default value is "8000".')
   .option('-f, --file <file>',
     'File containing options parameters.')
   .option('-l, --location <location>',
@@ -51,7 +49,6 @@ const options = validateOptions(program),
   refresh = options.refresh || false,
   code = options.code || false,
   scope = options.scope || 'ZohoCRM.modules.ALL',
-  port = options.port || 8000,
   location = options.location || 'eu',
   output = options.output || generateOutputFileName();
 
@@ -61,7 +58,7 @@ else if (code)
   getTokens(code);
 else
   makeServer(
-    { id, location, scope, port },
+    { id, location, scope, redirect },
     getTokens
   );
 

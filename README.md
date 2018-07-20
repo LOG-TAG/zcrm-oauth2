@@ -56,7 +56,6 @@ Usage: zcrm-oauth2 [options]
     --code <grant_token>       If not present, will be generated. It requires to redirect to "localhost" to make it work.
     --refresh <refresh_token>  refresh-token used to generate new access tokens.
     --scope <scopes...>        List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".
-    -p, --port <port>          The local server port to generate <grant_toke>. Default value is "8000".
     -f, --file <file>          File containing options parameters.
     -l, --location <location>  Zoho API authentication location. Default value is "eu".
     -o, --output <output>      Output file name.
@@ -88,13 +87,12 @@ $ zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:8000/
 ```
 
 > Generating the `grant code` automatically requires to set **http://localhost:[port]/** as redirect URL 
-in you application configuration. Default port is `8000`, but you can use any port your want passing
-the option `--port`.
+in you application configuration. 
 
 For example:
 
 ```shell
-$ zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:3333/ -p 3333
+$ zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:3333/ 
 ```
 
 You can also specify the **scope** of the `grant code` specifying the privileges for the application using 
@@ -127,7 +125,7 @@ all the options that you should pass as agruments.
 For example, the following line:
 
 ```shell
-$ zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:2345 --port 2345 --scope ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts --location com
+$ zcrm-oauth2 --id XXXXX --secret XXXXX --redirect http://localhost:2345 --scope ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts --location com
 ```
 
 can be simplified:
@@ -143,7 +141,6 @@ and the `./auth.json` file should look like this:
     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "redirect": "http://localhost:2345",
-    "port": "2345",
     "scope": "ZohoCRM.modules.Leads,ZohoCRM.modules.Accounts",
     "location": "com"
 }
@@ -153,7 +150,7 @@ This can help you to keep your parameters organized in a more readable way.
 
 The keys you have to use in the json file are the names of the options without `--`. 
 
-> For example, for `--port` you use `port`, for `--secret` you use `secret`, ...      
+> For example, for `--redirect` you use `redirect`, for `--secret` you use `secret`, ...      
 
 ### Classic use case
 
