@@ -42,6 +42,8 @@ program
   .version(packageJSON.version)
   .parse(process.argv);
 
+if (!program.args.length) program.help();
+
 const options = validateOptions(program),
   id = options.id,
   secret = options.secret,
