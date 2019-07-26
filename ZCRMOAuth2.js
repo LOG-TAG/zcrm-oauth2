@@ -30,7 +30,7 @@ program
     'Zoho API authentication location. Default value is "eu".')
   .option('-o, --output <output>',
     'Output file name.')
-  .on('--help', () => console.log(`
+  .on('-h, --help', () => console.log(`
     ${chalk.green('* required fields.')}
     
     You can find more about the usage on the official repository:
@@ -41,6 +41,8 @@ program
      `))
   .version(packageJSON.version)
   .parse(process.argv);
+
+if (!program.args.length) program.help();
 
 const options = validateOptions(program),
   id = options.id,
