@@ -23,7 +23,7 @@ program
     'refresh-token used to generate new access tokens.')
   .option('--scope <scopes...>',
     'List of scopes separated by ",". Default value is "ZohoCRM.modules.ALL".',
-    scope => scope.split(',').trim().join(','))
+    scope => scope.split(',').forEach(scope=>{scope.trim()}).join(','))
   .option('-f, --file <file>',
     'File containing options parameters.')
   .option('-l, --location <location>',
