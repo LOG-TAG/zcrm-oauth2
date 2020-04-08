@@ -42,7 +42,7 @@ program
   .version(packageJSON.version)
   .parse(process.argv);
 
-if (!program.args.length) program.help();
+if (process.argv[2] == null) program.help();
 
 const options = validateOptions(program),
   id = options.id,
